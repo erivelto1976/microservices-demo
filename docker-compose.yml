@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  reggo:
+    image: erivelto1976/microservice-opentelemetry
+    container_name: reggo
+    hostname: reggo
+    networks: 
+      - accounts-net
+    ports:
+      - "1111:1111"  
+    entrypoint: ["java", "-jar", "-javaagent:opentelemetry-javaagent-all.jar", "-Dotel.exporter=jaeger", "-Dotel.jaeger.endpoint=jaeger:14250", "-Dotel.jaeger.service.name=reggo", "app.jar", "reg"]
+
+  accounts:
+    image: erivelto1976/microservice-opentelemetry
+    container_name: accounts
+    hostname: accounts
+    networks: 
+      - accounts-net
+    ports:
+      - "2222:2222" 
+    depends_on:
+      - jaeger
+      - reggo      
+    entrypoint: ["java", "-jar", "-javaagent:opentelemetry-javaagent-all.jar", "-Dotel.exporter=jaeger", "-Dotel.jaeger.endpoint=jaeger:14250", "-Dotel.jaeger.service.name=accounts", "app.jar", "accounts",   "--registration.server.hostname=reggo"]
+
+  web:
+    image: erivelto1976/microservice-opentelemetry
+    container_name: web
+    hostname: web
+    networks: 
+      - accounts-net
+    ports:
+      - "3333:3333" 
+    depends_on:
+      - jaeger
+      - reggo      
+    entrypoint: ["java", "-jar", "-javaagent:opentelemetry-javaagent-all.jar", "-Dotel.exporter=jaeger", "-Dotel.jaeger.endpoint=jaeger:14250", "-Dotel.jaeger.service.name=web", "app.jar", "web", "--registration.server.hostname=reggo"]
+
+  jaeger:
+    image: jaegertracing/all-in-one
+    container_name: jaeger
+    hostname: jaeger
+    networks: 
+      - accounts-net
+    ports:
+      - "16686:16686" 
+
+networks:
+  accounts-net:
+    driver: bridge
