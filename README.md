@@ -20,7 +20,7 @@ To run this demo, open a Linux terminal and run these commands:
 
 3. Run docker-compose up:  
 
-   `sudo docker compose up`
+   `sudo docker-compose up`
 
 4. In your browser, go to http://localhost:3333. This is the microservice demo web interface. Browse these URLs:
 
