@@ -8,11 +8,11 @@ Simple distributed microservice application  (based on https://github.com/paulc4
 
 ### Procedure
 
-To run this demo, open a Linux terminal and run these commands:
+To run this demo, open a Linux terminal or Windows PowerShell and run these commands:
 
 1. Build the application:
 
-    `docker run -it --rm --name my-maven-project -v "$(pwd)":/usr/src/mymaven -w /usr/src/mymaven maven:3.3-jdk-8 mvn clean package`
+    `docker run -it --rm --name my-maven-project -v "$(pwd):/usr/src/mymaven" -w "/usr/src/mymaven" maven:3.3-jdk-8 mvn clean package`
 
 2. Build Docker image: 
 
@@ -20,7 +20,7 @@ To run this demo, open a Linux terminal and run these commands:
 
 3. Run docker-compose up:  
 
-   `sudo docker-compose up`
+   `docker-compose up` or `sudo docker-compose up`
 
 4. In your browser, go to http://localhost:3333. This is the microservice demo web interface. Browse these URLs:
 
