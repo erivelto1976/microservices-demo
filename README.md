@@ -1,8 +1,6 @@
 # Jaeger and OpenTelemetry end-to-end distributed tracing demo
 
-This Demo Includes
-
-Simple distributed microservice application  (based on https://github.com/paulc4/microservices-demo), and OpenTelemetry Java agent to collect traces and send it to the Jaeger.
+This demo includes simple distributed microservice application  (based on https://github.com/paulc4/microservices-demo), and OpenTelemetry Java agent to collect traces and send it to the Jaeger.
 
 ![Demo System Schematic](mini-system.jpg)
 
